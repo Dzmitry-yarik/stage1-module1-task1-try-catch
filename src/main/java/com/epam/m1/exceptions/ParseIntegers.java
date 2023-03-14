@@ -3,13 +3,10 @@ package com.epam.m1.exceptions;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-/**
- * Complete the code, parse integers, calculate the sum of numbers in the WORDS, join strings with
- * space delimiter
- */
 public class ParseIntegers {
-
     private static final List<String> WORDS =
             Arrays.asList(
                     "JDK 17 has released on 14 September 2021 with 10 new features, 2 feature removals and 2 feature deprecations."
@@ -21,11 +18,20 @@ public class ParseIntegers {
         String justWords = "";
         while (words.hasNext()) {
             String next = words.next();
-            int number = Integer.parseInt(next);
-            // todo: complete it
+            justWords = justWords + next + " ";
         }
+
+        Pattern p = Pattern.compile("\\b[\\d]+\\b");
+        Matcher m = p.matcher(justWords);
+        while (m.find()) {
+            int s = Integer.parseInt(m.group());
+            sum = sum + s;
+        }
+
+        String q = justWords.replaceAll("\\d", "");
+        justWords = q.replaceAll("  ", " ");
+
         System.out.println("Sum is " + sum);
-        System.out.println("Just words:" + justWords);
+        System.out.println("Just words: " + justWords);
     }
 }
-
