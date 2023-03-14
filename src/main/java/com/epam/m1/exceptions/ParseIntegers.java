@@ -7,12 +7,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ParseIntegers {
-    private static final List<String> WORDS =
+      private static final List<String> WORDS =
             Arrays.asList(
                     "JDK 17 has released on 14 September 2021 with 10 new features, 2 feature removals and 2 feature deprecations."
                             .split(" "));
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        try {
         Iterator<String> words = WORDS.iterator();
         int sum = 0;
         String justWords = "";
@@ -31,7 +32,11 @@ public class ParseIntegers {
         String q = justWords.replaceAll("\\d", "");
         justWords = q.replaceAll("  ", " ");
 
+
         System.out.println("Sum is " + sum);
         System.out.println("Just words: " + justWords);
+        } catch (NumberFormatException e) {
+            System.out.println("We can catch the NumberFormatException");
+        }
     }
 }
